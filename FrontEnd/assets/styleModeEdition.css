@@ -140,8 +140,12 @@ body {
 }
 header {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   margin: 50px 0;
+}
+main{
+    margin: 0px 100px;
 }
 section {
   margin: 50px 0;
@@ -174,6 +178,12 @@ strong {
 a {
   color: black;
 }
+nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
 nav ul {
   display: flex;
   align-items: center;
@@ -190,6 +200,18 @@ nav li {
   height: 59px;
   flex-direction: row;
   margin: 0px !important;
+  justify-content: center;
+
+}
+.navbarEdition button{
+    width: 216px;
+height: 38px;
+flex-shrink: 0;
+border-radius: 60px;
+background: #FFF;
+}
+.navbar2{
+    margin-top: -30px;
 }
 li a:hover {
   color: #b1663c;
@@ -220,7 +242,7 @@ li:hover {
 #btnModifierProjets{
 position: absolute;
 right: 33%;
-top: 92%;
+bottom: ;
 }
 #introduction {
   display: flex;
