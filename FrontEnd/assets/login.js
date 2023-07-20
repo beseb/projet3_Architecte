@@ -17,7 +17,7 @@ function validateMail(email) {
 function validatePassword(password) {
     const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{3,}$/gm;
     
-    if (regexPassword.test(password) === false) {
+    if (regexPassword.test(password) == false) {
       console.log(password);
       throw new Error(`Le mot de passe est incorrect.`);
     }
@@ -57,19 +57,21 @@ form.addEventListener("submit", async (event) => {
         // Récupère les données JSON de la réponse
         let data = await response.json();
         console.log(data);
-        // Récupère l'userID et l'accessToken depuis les données
+        // Récupère l'userId et l'accessToken depuis les données du backend et les stocke dans des variables & dans le local storage
         const userId = data.userId;
         const token = data.token;
+        // Enregistre les données userId et token dans le local storage
+        sessionStorage.setItem("userId",userId);
+        sessionStorage.setItem("token",token);
   
-        // Utilisez les valeurs récupérées selon vos besoins
         console.log('ID de l\'utilisateur:', userId);
         console.log('Jetons d\'accès:', token);
   
-        // Poursuivre avec les actions appropriées, par exemple, rediriger l'utilisateur vers une autre page
-        window.location.href = "modeEdition.html";
+        // Poursuivre pour rediriger l'utilisateur vers une autre page
+        window.location.href = "index.html";
+        
     } else {
       // La demande de connexion a échoué
-      // Effectuez ici les actions appropriées, par exemple, affichez un message d'erreur à l'utilisateur
       alert("Erreur dans l'identifiant ou le mot de passe " + error.message);
     }
   } catch (error) {
