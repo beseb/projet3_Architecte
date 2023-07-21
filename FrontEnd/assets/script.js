@@ -1,13 +1,16 @@
 import { genererAffichageTravaux } from "./gallery.js";
 import { affichageModal } from "./dialog.js";
 
+/**
+ * Function pour recuperer les travaux depuis l'API ou le localStorage
+ */
 
 // Récupération des travaux via le local storage
-export let travaux = window.localStorage.getItem("travaux");
+ export let travaux = window.localStorage.getItem("travaux");
 
 if (travaux === null) {
   // Récupération des élements depuis l'API
-  travaux = await fetch("http://localhost:5678/api/works").then((travaux) =>
+  travaux =  await fetch("http://localhost:5678/api/works").then((travaux) =>
     travaux.json()
   );
 
@@ -19,6 +22,7 @@ if (travaux === null) {
   travaux = JSON.parse(travaux);
 }
 
+// On récupère les travaux, pour les enregistrer dans une variable
 genererAffichageTravaux(travaux, "gallery");
 
 /*
@@ -74,6 +78,7 @@ if (userId != null && token != null) {
   // le bouton Login disparait
   let loginLink = document.getElementById("loginLink");
   loginLink.style.display = "none";
+  loginLink.style.padding = "0px";
   // Le bouton logout apparait
   let logoutLink = document.getElementById("logoutLink");
   logoutLink.style.display = null;

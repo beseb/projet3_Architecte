@@ -1,4 +1,4 @@
-import { travaux } from "./script.js";
+import {  travaux } from "./script.js";
 import { genererAffichageTravaux } from "./gallery.js";
 import { genererCategories } from "./gallery.js";
 
@@ -6,7 +6,7 @@ const overlay = document.querySelector(".overlay");
 let modal1 = document.querySelector(".modal1");
 let modal2 = document.querySelector(".modal2");
 /**
- * Fonction qui génerer l'affichage de la modal 1
+ * Fonction qui génère l'affichage de la modal 1
  */
 export function affichageModal() {
   // Vide l'interieur de la modal
@@ -32,25 +32,89 @@ export function affichageModal() {
     <button class="modal1-ajouter-une-photo">Ajouter une photo</button>
     <button class="modal1-supprimer-toutes-photos">Supprimer la galerie</button>
     </div>`;
-  genererAffichageTravaux(travaux, "modal");
+    genererAffichageTravaux(travaux, "modal");
   ajouterEvenementsBoutons();
+
+
+
+  
+  /**
+   * EventListener pour Suppression des images, individuellement
+   */
+  let deletePhotoButtons = document.querySelectorAll(".deletePhoto");
+
+  deletePhotoButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // Récupération de l'id du bouton cliqué, qui correspond à la photo concerné
+      let dataId = button.dataset.id;
+      console.log("le bouton " + dataId + "a ete cliqué");
+
+      //Appel à la fonction supprimerPhoto
+      supprimerPhoto(dataId);
+    });
+  });
 
   /**
    * EventListener pour ouvrir la modale 2
    */
   const ajouterPhoto = document.querySelector(".modal1-ajouter-une-photo");
-  console.log(ajouterPhoto);
   if (ajouterPhoto) {
     ajouterPhoto.addEventListener("click", () => {
       affichageModal2();
     });
   }
+  /**
+   * EventListener pour gérer l'affichage du bouton Move
+   */
+  /*  const figure = document.querySelector(".modal1-photos-wrapper figure")
+  const boutonMove = document.querySelector(".movePhoto")
+
+  figure.addEventListener("mouseenter",()=>{
+    boutonMove.visibility = "visible"
+
+  })
+  figure.addEventListener("mouseleave", () =>{
+    boutonMove.visibility = "hidden";
+  }) */
+}
+/**
+ * Fonction qui permet de supprimer individuellement les photos
+ */
+
+async function supprimerPhoto(id) {
+  console.log(`L'${id} est l'objet qui va être supprimé.`);
+  let token = sessionStorage.getItem("token");
+  console.log(token);
+
+  await fetch("http://localhost:5678/api/works/" + id, {
+    method: "DELETE",
+    headers: {
+      "Authorization": "Bearer " + token,
+      "Accept": "*/*",
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        console.log("La photo " + id + " a été supprimée avec succès !");
+        // Suppression du localStorage pour forcer à récuperer le nouvel ensemble de travaux depuis l'API plus tard
+        window.localStorage.removeItem("travaux");
+      } else {
+        console.log("La suppression a échouée");
+        console.log(response);
+      }
+    })
+    .catch((error) => {
+      console.log("Une erreur s'est produite :", error);
+    });
+  // On regénère l'affichage des travaux dans la modale sans la photo supprimée
+
+  affichageModal();
 }
 
 /**
  * Fonction pour générer l'affichage de la modal 2
  */
-export function affichageModal2() {
+function affichageModal2() {
   modal2.style.display = "flex";
   modal2.removeAttribute("aria-hidden");
   modal2.setAttribute("aria-modal", "true");
@@ -67,7 +131,7 @@ export function affichageModal2() {
 </svg></button>
   </div>
   <p class="modal2-title">Ajout Photo</p>
-  <div class="divAjoutPhoto"><img src="/FrontEnd/assets/icons/picture-svgrepo-com-1.jpg" id="previewImg"></img><button class="upload-button"><input type="file" id="file" name="file" accept=".png, .jpg, .jpeg" max-size="4MB">+Ajouter photo</button><p>jpg, png: 4mo max</p></div>
+  <div class="divAjoutPhoto"><img src="/FrontEnd/assets/icons/picture-svgrepo-com-1.jpg" class="previewImg icone"></img><button class="upload-button"><input type="file" id="file" name="file" accept=".png, .jpg, .jpeg" max-size="4MB">+Ajouter photo</button><p>jpg, png: 4mo max</p></div>
   
   
   <form class="formModal2" action="/upload" method="post" enctype="multipart/form-data" >
@@ -94,19 +158,35 @@ export function affichageModal2() {
   uploadButton.addEventListener("click", () => {
     fileInput.click();
   });
-
-  const previewImg = document.getElementById("previewImg");
-
+  // Affichage de la preview image
+  const previewImg = document.querySelector(".previewImg");
+  // Si l'image de preview est l'icone, elle à une classe affectée en CSS (".previewImg.icone") pour gérer sa hauteur/largeur
+  // Ici, on récupère le fichier à télécharger et on le visualise dans la boite de dialogue
   fileInput.addEventListener("change", () => {
     const file = fileInput.files[0];
     if (file) {
       const reader = new FileReader();
       reader.addEventListener("load", () => {
         previewImg.src = reader.result;
+        // Affichage de la preview image à 100% de sa hauteur, en lui retirant sa class CSS "icone"
+        previewImg.classList.remove("icone");
+        // Disparition du bouton upload
+        uploadButton.style.display = "none";
       });
       reader.readAsDataURL(file);
     }
   });
+  /**
+   * Fonction qui permet d'ajouter les photos à la gallerie et à la modal1
+   *
+   */
+  function ajouterPhoto(id) {
+    // Tout ça dans un Try / Catch ?
+    // On récupère le fichier
+    // Si le formulaire est correctement rempli, on active le bouton Valider
+    // On l'envoie à l'API pour l'enregistrer
+    // On regénère l'affichage de la gallerie et la modal1
+  }
 }
 /**
  * Fonction pour fermer les modales
@@ -170,3 +250,7 @@ function handleClickOutsideModal(event) {
 }
 // eventListener pour écouter les clicks en dehors des modales
 document.addEventListener("click", handleClickOutsideModal);
+/**
+ * Fonction de suppression des photos, individuellement
+ */
+function suppressionPhotos(target) {}
