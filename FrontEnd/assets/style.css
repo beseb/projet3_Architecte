@@ -2,7 +2,9 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-
+*{
+  box-sizing: border-box;
+}
 html,
 body,
 div,
@@ -167,6 +169,11 @@ section {
   flex-shrink: 0;
   border-radius: 60px;
   background: #fff;
+}
+.bannerEdition button:hover{
+  background-color: #1d6154;
+  color: white;
+  border: none
 }
 
 h1 {
@@ -444,7 +451,7 @@ input[type="submit"] {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 0;
   display: none;
 }
 hr {
@@ -454,34 +461,37 @@ hr {
   height: 0px;
   border: 1px solid #b3b3b3;
   margin-bottom: 30px;
-
 }
-.modal1 {
+.modal1,
+.modal2 {
   position: fixed;
-top: 0%;
-left: 0%;
-right: 0%;
-bottom: 0%;
-margin: auto;
-  width: 630px;
-  height: max-content;
-  border-radius: 10px;
-  border: none;
+  top: 0%;
+  left: 0%;
+  right: 0%;
+  bottom: 0%;
+  margin: auto;
+  width: 700px;
+  height: fit-content;
+  border-radius: 10px !important;
+  border: none !important;
   display: flex;
   align-items: center;
   justify-content: center;
   animation: fadeIn 0.2s both;
   z-index: 1000;
 }
-.modal1::backdrop{
+#modal2{
+  display: flex;
+  flex-direction: column;
+  height: 856px;
+  justify-content: space-around;
 }
-
-.modal1-wrapper {
+.modal-wrapper {
   overflow: hidden;
   width: 100%;
   height: 100%;
- /* max-height: calc(100vh - 20px);
-  max-width: calc(100vw - 20px);*/
+  border: none;
+  border-radius: 10px;
   padding: 20px;
   background-color: white;
   animation: fadeIn 0.2s both;
@@ -490,74 +500,168 @@ margin: auto;
   align-items: center;
   justify-content: center;
 }
-.divBoutonFermer{
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+.divBoutonFermer {
+  position: absolute;
+  top: 15px;
+  right: 33px;
+  transition: transform 0.1s ease-in-out;
 }
-.modal1-bouton-fermer{
-  float: left !important;
-  color: black;
+.divBoutonFermer:hover{
+  transform: scale(1.2);
+ 
+}
+.divBoutonRetour{
+  position: absolute;
+  top: 15px;
+  left: 30px;
+  z-index: 1000;
+  transition: transform 0.1s ease-in-out;
+}
+.divBoutonRetour:hover{
+  transform: scale(1.2);
+}
+#previewImg{
+  height: min-content ;
+  width: min-content;
+}
+.modal-bouton-fermer, .modal-bouton-fermer2, .modal-bouton-retour {
+  color: black !important;
   width: 12.01px;
-height: 12.01px;
-flex-shrink: 0;
-fill: #000;
-border: none !important;
-background-color: white;
+  height: 12.01px;
+  flex-shrink: 0;
+  fill: #000;
+  border: none !important;
+  background-color: white;
 }
-.modal1-title{
+.modal1-title, .modal2-title {
   color: #000;
-text-align: center;
-font-family: Work Sans;
-font-size: 26px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-margin: 20px 0px;
+  text-align: center;
+  font-family: Work Sans;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 20px 0px;
 }
-.modal1-ajouter-une-photo{
-margin-top: 30px;
-margin-bottom: 30px;
-width: 237px;
+.modal2 .divAjoutPhoto{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 300px;
+  border-radius: 3px;
+ background: #E8F1F6;
+ z-index: 10;
+ margin: 0px;
+}
+.modal2 .divAjoutPhoto svg{
+  margin: 50px 0px;
+}
+.modal2 .divAjoutPhoto input[type="file"]{
+  display: none;
+}
+.modal2 .divAjoutPhoto button{
+  width: 173px;
 height: 36px;
 flex-shrink: 0;
-color: white !important;
-text-align: center;
-font-family: Syne;
-font-size: 14px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-border-radius: 60px;
-background: #1D6154;
-} 
-.modal1-supprimer-toutes-photos{
-  width: 230px;
-  color: #D65353 !important;
-text-align: center !important;
-font-family: Syne;
-font-size: 14px !important;
-font-style: normal;
-font-weight: 400 !important;
-line-height: normal !important;
-border: none !important;
-background-color: white;
-}
-.modal1-supprimer-toutes-photos:hover{
-  background-color: white !important;
-  font-size: 900 !important;
-}
-.modal1[aria-hidden = "true"]{
-  animation: fadeOut 0.2s both;
-}
-.modal1[aria-hidden = "true"] .modal1-wrapper{
-  animation: fadeOut 0.2s both;
+border: none;
+border-radius: 50px;
+background: #CBD6DC;
+transition: transform 0.1s ease-in-out;
 
 }
-.modal1-photos{
-  
+
+.modal2 .divAjoutPhoto input:hover{
+color: black;
+background: white;
+}
+.modal2 .divAjoutPhoto p{
+  margin-top: 10px;
+}
+.modal2 form{
+  display: flex;
+  flex-direction: column;
+
+  width: 500px;
+  margin: 50px 0px;
+}
+.modal2 form input,.modal2 form select{
+  height: 51px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  background: #FFF;
+box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+border: none;
+}
+.modal2 form label{
+  margin-bottom: 20px;
+  color: #3D3D3D;
+font-family: Work Sans;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+
+}
+.modal2 form hr{
+  width: 500px;
+}
+.boutonValiderAjout{
+  width: 237px;
+height: 36px;
+flex-shrink: 0;
+border-radius: 60px;
+background: #A7A7A7;
+color: white;
+border: none;
+position: relative;
+bottom: -7px;
+left: 142px;
+}
+.boutonValiderAjout:hover{
+  background: white;
+  color: #3D3D3D;
+  border: 1px solid #3D3D3D;
+}
+
+.modal1-ajouter-une-photo {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 237px;
+  height: 36px;
+  flex-shrink: 0;
+  color: white !important;
+  text-align: center;
+  font-family: Syne;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  border-radius: 60px;
+  background: #1d6154;
+}
+.modal1-ajouter-une-photo:hover {
+  background-color: white !important;
+  color: black !important;
+}
+.modal1-supprimer-toutes-photos {
+  width: 230px;
+  color: #d65353 !important;
+  text-align: center !important;
+  font-family: Syne;
+  font-size: 14px !important;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal !important;
+  border: none !important;
+  background-color: white;
+}
+.modal1-supprimer-toutes-photos:hover {
+  color: #000 !important;
+  font-weight: 700;
+}
+.modal1-photos {
   margin: auto;
 }
 .modal1-photos-wrapper {
@@ -572,9 +676,38 @@ background-color: white;
 .modal1-photos-wrapper img {
   max-height: 150px;
   width: auto;
+  position: relative;
+  z-index: 4;
+}
+.modal1-photos-wrapper img:hover {
+  z-index: 1 !important;
 }
 
-
+.deletePhoto,
+.movePhoto {
+  position: relative;
+  color: #000;
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  background-color: #000;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  padding: 0.1px;
+}
+.deletePhoto {
+  top: -160px;
+  right: -90px;
+  z-index: 4;
+}
+.movePhoto {
+  top: -143px;
+  right: -70px;
+  z-index: 2 !important;
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -584,14 +717,6 @@ background-color: white;
   }
 }
 
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
 
 footer nav ul {
   display: flex;
