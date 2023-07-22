@@ -629,7 +629,7 @@ hr {
 .modal2 form hr {
   width: 500px;
 }
-.boutonValiderAjout {
+.boutonValiderAjoutPhoto {
   width: 237px;
   height: 36px;
   flex-shrink: 0;
@@ -642,9 +642,7 @@ hr {
   left: 142px;
 }
 .boutonValiderAjout:hover {
-  background: white;
-  color: #3d3d3d;
-  border: 1px solid #3d3d3d;
+
 }
 
 .modal1-ajouter-une-photo {
@@ -710,13 +708,15 @@ justify-items: flex-end;
 }
 .boutons{
   display: flex;
+  justify-content: flex-end;
   gap: 3px;
-  top: -102px;
-  left: 40px;
+  top: -107px;
+  left: 0px;
   position: relative;
+  background-color: #306685;
 }
 .modal1-photos-wrapper figure figcaption {
-  margin-top: -10px;
+  margin-top: 0px;
 }
 
 .modal1-photos-wrapper img {
@@ -736,8 +736,14 @@ justify-items: flex-end;
   padding: 0.1px;
 }
 .deletePhoto {
-  top: -120px;
-  right: -57px;
+  top: -10px;
+    right: 0px;
+    position: absolute;
+}
+.movePhoto{
+  top: -10px;
+  right: 23px;
+  position: absolute;
 }
 .deletePhoto:hover {
   background-color: white;

@@ -14,8 +14,8 @@ async function supprimerPhoto(id) {
       .then((response) => {
         if (response.ok) {
           alert("La photo " + id + " a été supprimée avec succès !");
-          // Suppression du localStorage pour forcer à récuperer le nouvel ensemble de travaux depuis l'API plus tard
-          window.localStorage.removeItem("travaux");
+          // Suppression du sessionStorage pour forcer à récuperer le nouvel ensemble de travaux depuis l'API plus tard
+          window.sessionStorage.removeItem("travaux");
         } else {
           alert("La suppression a échouée");
           console.log(response);
@@ -30,3 +30,29 @@ async function supprimerPhoto(id) {
     affichageModal();
   }
   
+
+
+// Ajout photo
+
+  fetch("http://localhost:5678/works", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+          Accept: "*/*",
+        },
+        body: chargeUtile,
+      }).then((response) => {
+        if (response.ok) {
+          alert("La photo  a été ajoutée avec succès !");
+          // Suppression du sessionStorage pour forcer à récuperer le nouvel ensemble de travaux depuis l'API plus tard
+          window.sessionStorage.removeItem("travaux");
+        } else {
+          alert("L'ajout a échoué");
+          console.log(response);
+        }
+        // On regénère l'affichage des travaux dans la modale avec la photo ajoutée
+        console.log(travaux);
+        affichageModal();
+        closeModal2();
+      });
