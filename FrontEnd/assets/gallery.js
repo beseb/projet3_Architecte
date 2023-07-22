@@ -7,7 +7,6 @@ export async function genererAffichageTravaux(travaux, type = "type") {
     // Récuperation de la div "Porfolio" et de la div "Gallery" si elle existe
     let container = document.getElementById("portfolio");
     let divGallery = document.querySelector(".gallery");
-    console.log(divGallery);
     // Suppression de la div Gallery existante
     if (divGallery) {
       divGallery.remove();

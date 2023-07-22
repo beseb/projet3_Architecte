@@ -529,7 +529,7 @@ hr {
   height: 58px;
   width: 58px;
   position: absolute;
-  top: 130px;
+  top: 170px;
   left: 283px;
 }
 .modal-bouton-fermer,
@@ -554,21 +554,33 @@ hr {
   line-height: normal;
   margin: 20px 0px;
 }
+.modal2-title {
+  margin-bottom: 30px !important;
+  font-family: Work Sans;
+font-size: 26px !important;
+font-weight: 400 !important;
+line-height: 30px;
+letter-spacing: 0em;
+text-align: center;
+
+}
 .modal2 .divAjoutPhoto {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  width: 420px;
+  width: 100%;
   height: 169px;
   border-radius: 3px;
   background: #e8f1f6;
   z-index: 10;
-  margin: 0px;
+  margin-bottom: 30px;
 }
 
-.modal2 .divAjoutPhoto input[type="file"] {
-  display: none;
+#fileInput {
+z-index: -1;
+width: 173px;
+height: 36px;
 }
 .modal2 .divAjoutPhoto button {
   width: 173px;
@@ -578,12 +590,33 @@ hr {
   border-radius: 50px;
   background: #cbd6dc;
   position: absolute;
-  top: 210px;
+  top: 220px;
   left: 230px;
   color: #306685;
   font-family: "Work Sans";
   font-size: 14px;
   font-weight: 500;
+}
+#labelAjoutPhoto{
+  width: 173px;
+  height: 36px;
+  border-radius: 50px;
+  background-color:#CBD6DC;
+  color: #306685;  
+  margin: auto;
+  display: 	flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 240px;
+  left: 225px;
+  z-index: 1000;
+}
+#infoAjout{
+  position: absolute;
+  top: 280px;
+  left: 265px;
 }
 .modal2 .divAjoutPhoto p {
   position: absolute;
@@ -600,6 +633,10 @@ hr {
 }
 .modal2 .divAjoutPhoto p {
   margin-top: 10px;
+}
+#inputFile{
+display: none;
+
 }
 .modal2 form {
   display: flex;
@@ -634,7 +671,7 @@ hr {
   height: 36px;
   flex-shrink: 0;
   border-radius: 60px;
-  background: #a7a7a7;
+  background: #A7A7A7;
   color: white;
   border: none;
   position: relative;
