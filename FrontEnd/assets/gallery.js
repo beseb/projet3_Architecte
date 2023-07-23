@@ -1,4 +1,29 @@
 /**
+ * Fonction pour ajouter le bouton Fermer & Retour
+ */
+function ajouterEvenementsBoutons() {
+  const boutonFermer = document.querySelector(".modal-bouton-fermer");
+  const boutonFermer2 = document.querySelector(".modal-bouton-fermer2");
+
+  const boutonRetour = modal2.querySelector(".modal-bouton-retour");
+  if (boutonFermer) {
+    boutonFermer.addEventListener("click", () => {
+      closeModal();
+    });
+  }
+  if (boutonFermer2) {
+    boutonFermer2.addEventListener("click", () => {
+      closeModal();
+    });
+  }
+  if (boutonRetour) {
+    boutonRetour.addEventListener("click", () => {
+      closeModal2();
+    });
+  }
+}
+
+/**
  *Fonction qui génère l'affiche des travaux avec {travaux} en paramètre, en fonction de l'endroit de la page où elle doit être
  * */
 export async function genererAffichageTravaux(travaux, type = "type") {

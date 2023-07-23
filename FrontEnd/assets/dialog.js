@@ -95,13 +95,17 @@ export function affichageModal() {
     let deletePhotoButtons = document.querySelectorAll(".deletePhoto");
 
     deletePhotoButtons.forEach((button) => {
-      button.addEventListener("click", () => {
+      button.addEventListener("click", (event) => {
+
+        // Empecher la propagation de l'évenement
+        removeModal1CloseEvent()
         // Récupération de l'id du bouton cliqué, qui correspond à la photo concerné
         let dataId = button.dataset.id;
-        console.log("le bouton " + dataId + "a ete cliqué");
-
         //Appel à la fonction supprimerPhoto
         supprimerPhoto(dataId);
+        // Regeneration de la gallerie
+        affichageModal()
+        document.addEventListener("click", handleClickOutsideModal)
       });
     });
   });
@@ -131,9 +135,7 @@ async function supprimerPhoto(id) {
     .catch((error) => {
       alert("Une erreur s'est produite :", error);
     });
-  // On regénère l'affichage des travaux dans la modale sans la photo supprimée
 
-  affichageModal();
 }
 
 /**
@@ -181,6 +183,7 @@ function affichageModal2() {
    */
   const fileInput = document.getElementById("inputFile");
   const labelAjoutPhoto = document.getElementById("labelAjoutPhoto");
+  const infoAjout = document.getElementById("infoAjout")
 
   // Affichage de la preview image
   const previewImg = document.querySelector(".previewImg");
@@ -194,8 +197,10 @@ function affichageModal2() {
         previewImg.src = reader.result;
         // Affichage de la preview image à 100% de sa hauteur, en lui retirant sa class CSS "icone"
         previewImg.classList.remove("icone");
-        // Disparition du bouton upload
+        // Disparition du bouton upload et du texte d'infoAjout
         labelAjoutPhoto.style.display = "none";
+        infoAjout.style.display = "none"
+        
       });
       reader.readAsDataURL(file);
     }
@@ -339,7 +344,7 @@ function ajouterEvenementsBoutons() {
   }
 }
 
-// Fonction pour gener la fermeture des modales lors d'un clic en dehors
+// Fonction pour permettre la fermeture des modales lors d'un clic en dehors
 function handleClickOutsideModal(event) {
   if (
     (event.target === overlay && event.target !== modal1) ||
@@ -351,5 +356,10 @@ function handleClickOutsideModal(event) {
     closeModal2();
   }
 }
+// Fonction pour empecher la fermeture des modales
+function removeModal1CloseEvent() {
+  document.removeEventListener("click", handleClickOutsideModal);
+}
+
 // EventListener pour écouter les clicks en dehors des modales
 document.addEventListener("click", handleClickOutsideModal);
