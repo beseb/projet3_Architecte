@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/style.css">
+    <script type="module" src="ajoutPhoto.js" defer></script>
+    <title>Test envoie photo</title>
+</head>
+<body>
+    <form id="photo-form">
+        <label for="title">Titre :</label>
+        <input type="text" name="title" required>
+        
+        <label for="category">Catégorie :</label>
+        <select name="category" required>
+          <option value="">-- Sélectionner une catégorie --</option>
+          <option value="1">Catégorie 1</option>
+          <option value="2">Catégorie 2</option>
+          <option value="3">Catégorie 3</option>
+        </select>
+        
+        <label for="photo">Photo :</label>
+        <input type="file" name="photo" required>
+        
+        
+        <button type="submit">Envoyer</button>
+      </form>
+      
+</body>
+</html>

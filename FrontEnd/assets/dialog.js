@@ -156,7 +156,7 @@ function affichageModal2() {
 </svg></button>
   </div>
   
-  <form class="formModal2" action="/upload" method="post" enctype="multipart/form-data" >
+  <form class="formModal2"  method="post" enctype="multipart/form-data" >
   <p class="modal2-title">Ajout Photo</p>
   <div class="divAjoutPhoto">
   <img src="/FrontEnd/assets/icons/picture-svgrepo-com-1.jpg" class="previewImg icone"></img><p id = "infoAjout">jpg, png: 4mo max</p></div>
@@ -179,7 +179,6 @@ function affichageModal2() {
   /**
    * Permettre de télécharger une image, en ayant le input[type="file"] caché, pour plus de design et la preview du document televersé
    */
-
   const fileInput = document.getElementById("inputFile");
   const labelAjoutPhoto = document.getElementById("labelAjoutPhoto");
 
@@ -236,12 +235,10 @@ function affichageModal2() {
       }
 
       // Si tout est valide, retournez true
-      boutonValiderAjoutPhoto.style.background = "#1d6154"
+      boutonValiderAjoutPhoto.style.background = "#1d6154";
       boutonValiderAjoutPhoto.style.color = "white";
       return true;
     }
-    // Compteur pour mettre à jour les id des nouvelles photos
-    let compteur = 0;
     // Listener sur boutonValider pour ajouter la photo à l'API
     boutonValiderAjoutPhoto.addEventListener("click", (event) => {
       event.preventDefault();
@@ -249,32 +246,28 @@ function affichageModal2() {
       if (!checkInputs()) {
         return;
       }
-      // A chaque click, on incrémente le compteur i pour avoir un nouvel id à chaque nouvelle photo
-      compteur++;
+
       // On récupère l'id de la catégorie de photos sélectionnée
       let selectCategorie = document.querySelector("[name=inputCategorie]");
       let selectedOption =
         selectCategorie.options[selectCategorie.selectedIndex];
       let idCategorie = selectedOption.getAttribute("id");
-      // On crée l'objet à mettre dans la charge Utile
-      const nouvellePhoto = {
-        // id: compteur,
-        title: document.querySelector("[name = inputTitre]").value,
-        imageUrl: fileInput.files[0],
-        categoryId: idCategorie,
-        // userId: window.sessionStorage.getItem("userId"),
-      };
-      console.log(nouvellePhoto);
-      // Création ChargeUtile
-      const chargeUtile = JSON.stringify(nouvellePhoto);
-      console.log(chargeUtile);
-      // Appel de la fonction fetch avec toutes les informations nécessaires
-      async function envoyerNouvellePhoto() {
+
+      // On crée l'objet à mettre dans la charge Utile, en formData
+      let formData = new FormData();
+      formData.append(
+        "title",
+        document.querySelector("[name = inputTitre]").value
+      );
+      formData.append("image", fileInput.files[0]);
+      formData.append("category", idCategorie);
+
+      // Création de la fonction fetch avec toutes les informations nécessaires
+      async function envoyerNouvellePhoto(chargeUtile) {
         await fetch("http://localhost:5678/api/works", {
           method: "POST",
           headers: {
             Authorization: "Bearer " + window.sessionStorage.getItem("token"),
-            Accept: "*/*",
           },
           body: chargeUtile,
         }).then((response) => {
@@ -294,7 +287,7 @@ function affichageModal2() {
           closeModal2();
         });
       }
-      envoyerNouvellePhoto();
+      envoyerNouvellePhoto(formData);
     });
   }
 }
